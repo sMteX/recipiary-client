@@ -10,7 +10,8 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator';
+import Vue from 'vue';
+import Component from 'nuxt-class-component';
 import Logo from '~/components/Logo.vue';
 
 @Component({
