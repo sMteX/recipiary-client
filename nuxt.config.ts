@@ -8,7 +8,7 @@ const nuxtConfig: Configuration = {
     /*
      ** Nuxt.js dev-modules
      */
-    buildModules: ['@nuxt/typescript-build', '@nuxtjs/stylelint-module'],
+    buildModules: ['@nuxt/typescript-build', '@nuxtjs/stylelint-module', 'nuxt-composition-api'],
     typescript: {
         typeCheck: true,
         ignoreNotFoundWarnings: true
