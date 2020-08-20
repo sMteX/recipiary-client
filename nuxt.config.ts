@@ -62,8 +62,19 @@ const nuxtConfig: Configuration = {
     /*
      ** Nuxt.js modules
      */
-    modules: ['@nuxt/content', '@nuxtjs/style-resources', '@nuxtjs/axios'],
-    axios: {},
+    modules: ['@nuxt/content', '@nuxtjs/style-resources', '@nuxtjs/axios', '@nuxtjs/auth'],
+    axios: {
+        baseURL: `${server.protocol}://${server.host}:${server.port}`
+    },
+    auth: {
+        strategies: {
+            local: {
+                endpoints: {
+                    login: { url: '/auth/login', method: 'post', propertyName: 'data'}
+                }
+            }
+        }
+    },
     content: {
 
     },

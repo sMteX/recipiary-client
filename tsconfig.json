@@ -28,6 +28,7 @@
             "@nuxt/types",
             "@nuxt/content",
             "@nuxtjs/axios",
+            "@types/nuxtjs__auth",
             "@types/lodash"
         ]
     },
