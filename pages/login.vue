@@ -6,6 +6,7 @@
         <input type="password" v-model="password" />
         <button type="submit" @click="login">Login</button>
         <p v-if="loggedIn">Logged in</p>
+        <button v-if="loggedIn" @click="logout">Logout</button>
         <p v-if="error">Error: {{ error }}</p>
     </div>
 </template>
@@ -26,6 +27,10 @@ export default class LoginPage extends Vue {
 
     get loggedIn(): boolean {
         return this.$auth.loggedIn;
+    }
+
+    async logout() {
+        await this.$auth.logout();
     }
 
     async login() {
