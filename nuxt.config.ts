@@ -8,7 +8,7 @@ const nuxtConfig: Configuration = {
     /*
      ** Nuxt.js dev-modules
      */
-    buildModules: ['@nuxt/typescript-build', '@nuxtjs/stylelint-module', 'nuxt-composition-api'],
+    buildModules: ['@nuxt/typescript-build', '@nuxtjs/stylelint-module', 'nuxt-composition-api', '@nuxtjs/tailwindcss'],
     typescript: {
         typeCheck: true,
         ignoreNotFoundWarnings: true
@@ -105,7 +105,14 @@ const nuxtConfig: Configuration = {
     /*
      ** Router configuration
      */
-    router: {}
+    router: {},
+    tailwindcss: {
+        // default options
+        cssPath: '~/assets/css/tailwind.css',
+        configPath: 'tailwind.config.js',
+        exposeConfig: false,
+        config: {}
+    }
 };
 
 export default nuxtConfig;

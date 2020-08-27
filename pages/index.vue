@@ -4,6 +4,7 @@
             logo
             h1.title client
             h2.subtitle Client for Contentry app
+            div.bg-gray-200(class='hover:bg-gray-500') Hello Tailwind
             div.links
                 a(href="https://nuxtjs.org/", target="_blank", class="button--green") Documentation
                 a(href="https://github.com/nuxt/nuxt.js", target="_blank", class="button--grey") GitHub
