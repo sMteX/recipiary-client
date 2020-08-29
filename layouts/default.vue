@@ -1,5 +1,5 @@
 <template lang="pug">
-    div
+    div.container.mx-auto
         nuxt
 </template>
 
