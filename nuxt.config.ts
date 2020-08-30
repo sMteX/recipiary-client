@@ -51,14 +51,13 @@ const nuxtConfig: Configuration = {
      ** Global CSS
      */
     css: [
-        'ant-design-vue/dist/antd.css',
         '@fortawesome/fontawesome-svg-core/styles.css',
         '@/assets/css/global.scss'
     ],
     /*
      ** Plugins to load before mounting the App
      */
-    plugins: ['@/plugins/antd-ui', '@/plugins/clipboard', '@/plugins/fontawesome'],
+    plugins: ['@/plugins/clipboard', '@/plugins/fontawesome'],
     /*
      ** Nuxt.js modules
      */
