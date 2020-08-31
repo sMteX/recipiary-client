@@ -1,6 +1,5 @@
 <template lang="pug">
-    div.container.mx-auto
-        nuxt
+    nuxt
 </template>
 
 <style lang="scss">
