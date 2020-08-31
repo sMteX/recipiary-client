@@ -61,7 +61,7 @@ const nuxtConfig: Configuration = {
     /*
      ** Nuxt.js modules
      */
-    modules: ['@nuxt/content', '@nuxtjs/style-resources', '@nuxtjs/axios', '@nuxtjs/auth'],
+    modules: ['@nuxtjs/style-resources', '@nuxtjs/axios', '@nuxtjs/auth'],
     axios: {
         baseURL: `${server.protocol}://${server.host}:${server.port}`
     },
@@ -83,9 +83,6 @@ const nuxtConfig: Configuration = {
                 }
             }
         }
-    },
-    content: {
-
     },
     /*
      ** Build configuration
