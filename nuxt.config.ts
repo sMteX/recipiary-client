@@ -61,7 +61,7 @@ const nuxtConfig: Configuration = {
     /*
      ** Nuxt.js modules
      */
-    modules: ['@nuxtjs/style-resources', '@nuxtjs/axios', '@nuxtjs/auth'],
+    modules: ['@nuxt/components', '@nuxtjs/style-resources', '@nuxtjs/axios', '@nuxtjs/auth'],
     axios: {
         baseURL: `${server.protocol}://${server.host}:${server.port}`
     },
@@ -92,6 +92,10 @@ const nuxtConfig: Configuration = {
          ** You can extend webpack config here
          */
     },
+    /*
+     ** Auto import of components
+     */
+    components: true,
     /*
      ** Style resources
      */
