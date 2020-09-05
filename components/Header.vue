@@ -22,7 +22,7 @@
                         li
                             nuxt-link(to="/settings" class="header-link") Nastavení
                         li
-                            button(class="header-link" :click="$auth.logout()") Odhlásit se
+                            button(class="header-link" @click="logout") Odhlásit se
                     template(v-else)
                         li
                             nuxt-link(class="header-link" to="/login") Přihlásit se
@@ -36,7 +36,11 @@ import Vue from 'vue';
 import Component from 'nuxt-class-component';
 
 @Component({})
-export default class Header extends Vue {}
+export default class Header extends Vue {
+    async logout() {
+        await this.$auth.logout();
+    }
+}
 </script>
 
 <style lang="scss">

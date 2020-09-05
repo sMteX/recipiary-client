@@ -66,20 +66,19 @@ const nuxtConfig: Configuration = {
         baseURL: `${server.protocol}://${server.host}:${server.port}`
     },
     auth: {
-        /*
         // defaults
         redirect: {
-            login: '/login',
-            logout: '/',
-            callback: '/login',
-            home: '/'
+            login: '/login',    // redirected here _if login required_
+            logout: '/',        // redirected here if _after logout, path is protected_
+            home: '/',          // redirected _after login_
+            callback: '/login', // redirected by identity provider _after login_
         },
-         */
         strategies: {
             local: {
                 endpoints: {
                     login: { url: '/auth/login', method: 'post', propertyName: 'data'},
-                    user: false
+                    user: false,
+                    logout: false
                 }
             }
         }
