@@ -34,7 +34,7 @@ import Component from 'nuxt-class-component';
 export default class Header extends Vue {}
 </script>
 
-<style scoped>
+<style lang="scss">
 #menu-toggle:checked + #menu {
     display: block;
 }
