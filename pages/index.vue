@@ -1,6 +1,7 @@
 <template lang="pug">
-    div(class="px-4")
-        div(class="max-w-3xl bg-white rounded-lg mx-auto my-16 p-16")
+    div
+        RecipiaryLogo(class="mx-auto pt-4 w-1/2 h-32")
+        div(class="bg-white rounded-lg p-16 my-8")
             h1(class="text-2xl font-medium mb-2") Let's build some shit
             h2(class="font-medium text-sm text-indigo-400 mb-4 uppercase tracking-wide") Navbar
             | Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perferendis temporibus facilis eveniet asperiores dignissimos porro harum. Nemo sunt quae exercitationem culpa ipsum laudantium expedita at dignissimos sint natus? Quas, odit?
@@ -19,5 +20,4 @@ export default class Homepage extends Vue {}
 </script>
 
 <style lang="scss">
-
 </style>

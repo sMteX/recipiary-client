@@ -1,7 +1,8 @@
 <template lang="pug">
     div
         Header
-        nuxt
+        div(class="max-w-6xl mx-auto w-full")
+            nuxt
 </template>
 
 <script>
