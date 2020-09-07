@@ -1,6 +1,6 @@
 <template lang="pug">
     div
-        RecipiaryLogo(class="mx-auto pt-4 w-1/2 h-32")
+        RecipiaryLogo(class="mx-auto pt-4 w-1/2 h-32" stroke="#fff" fill="#fff")
         div(class="bg-white rounded-lg p-16 my-8")
             h1(class="text-2xl font-medium mb-2") Let's build some shit
             h2(class="font-medium text-sm text-indigo-400 mb-4 uppercase tracking-wide") Navbar

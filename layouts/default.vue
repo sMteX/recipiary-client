@@ -9,7 +9,7 @@
 export default {
     head: {
         bodyAttrs: {
-            class: 'bg-gray-200'
+            class: 'body-class'
         }
     }
 }
