@@ -3,13 +3,22 @@
         RecipiaryLogo(class="mx-auto pt-4 w-1/2 h-32" stroke="#fff" fill="#fff")
         div(class="w-auto inline-block px-4 pb-2 border-b-2 border-white")
             h1(class="font-sans text-white font-bold text-4xl tracking-wide") Kategorie
-        div(class="grid grid-cols-5 gap-8 pt-6 px-2")
+        div(class="grid grid-cols-5 gap-8 py-6 px-2")
             CategoryItem(file="Chicken-Tikka-Masala-Square.jpg" title="Oběd")
             CategoryItem(file="Chicken-Tikka-Masala-Square.jpg" title="Oběd")
             CategoryItem(file="Chicken-Tikka-Masala-Square.jpg" title="Oběd")
             CategoryItem(file="Chicken-Tikka-Masala-Square.jpg" title="Oběd")
             CategoryItem(file="Chicken-Tikka-Masala-Square.jpg" title="Oběd")
             CategoryItem(file="Chicken-Tikka-Masala-Square.jpg" title="Oběd")
+            template(v-if="showAllCategories")
+                CategoryItem(file="Chicken-Tikka-Masala-Square.jpg" title="Oběd")
+                CategoryItem(file="Chicken-Tikka-Masala-Square.jpg" title="Oběd")
+                CategoryItem(file="Chicken-Tikka-Masala-Square.jpg" title="Oběd")
+                CategoryItem(file="Chicken-Tikka-Masala-Square.jpg" title="Oběd")
+                CategoryItem(file="Chicken-Tikka-Masala-Square.jpg" title="Oběd")
+        div(class="flex justify-center" v-if="!showAllCategories")
+            button(class="bg-orange-500 p-4 rounded-md text-white font-bold tracking-wide hover:bg-orange-600"
+                @click="allCategoriesClick") Zobrazit všechny kategorie
         //-div(class="bg-white rounded-lg p-16 my-8")
             h1(class="text-2xl font-medium mb-2") Let's build some shit
             h2(class="font-medium text-sm text-indigo-400 mb-4 uppercase tracking-wide") Navbar
@@ -25,7 +34,13 @@ import Component from 'nuxt-class-component';
         title: 'Home',
     }
 })
-export default class Homepage extends Vue {}
+export default class Homepage extends Vue {
+    showAllCategories: boolean = false;
+
+    allCategoriesClick() {
+        this.showAllCategories = true;
+    }
+}
 </script>
 
 <style lang="scss">
