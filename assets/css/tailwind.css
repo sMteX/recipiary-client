@@ -6,7 +6,7 @@
 }
 /* workaround for hover:border-purple-600 */
 .header-link:hover {
-    @apply border-purple-600;
+    @apply border-orange-500;
 }
 /* workaround for lg:p-4 */
 @screen lg {

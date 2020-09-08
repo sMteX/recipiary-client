@@ -5,7 +5,7 @@
         div(class="h-32 bg-local bg-cover rounded rounded-b-none"
             :style="imageStyle")
         //text
-        div(class="bg-orange-700 rounded rounded-t-none text-white p-2 font-sans font-bold tracking-wide")
+        div(class="bg-orange-500 hover:bg-orange-600 rounded rounded-t-none text-white p-2 font-sans font-bold tracking-wide")
             | {{ title }}
 </template>
 

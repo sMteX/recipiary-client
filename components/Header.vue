@@ -1,5 +1,5 @@
 <template lang="pug">
-    header(class="px-6 lg:px-16 bg-black bg-opacity-50 text-white shadow flex justify-between flex-wrap items-center py-2 lg:py-0")
+    header(class="px-6 lg:px-16 bg-black bg-opacity-50 text-white flex justify-between flex-wrap items-center py-2 lg:py-0")
         div(class="flex justify-start items-center w-auto")
             ul(class="flex items-center justify-between")
                 li(class="px-4")
@@ -32,7 +32,7 @@
                             nuxt-link(class="header-link" to="/login") Přihlásit se
             a(href="#" class="lg:ml-4 flex items-center justify-start lg:mb-0 mb-4 cursor-pointer")
                 img(src="https://pbs.twimg.com/profile_images/1128143121475342337/e8tkhRaz_normal.jpg"
-                    alt="Avatar" class="rounded-full w-10 h-10 border-2 border-transparent hover:border-purple-600")
+                    alt="Avatar" class="rounded-full w-10 h-10 border-2 border-transparent hover:border-orange-500")
 </template>
 
 <script lang="ts">
