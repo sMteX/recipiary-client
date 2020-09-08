@@ -1,6 +1,8 @@
 <template lang="pug">
     div
         RecipiaryLogo(class="mx-auto pt-4 w-1/2 h-32" stroke="#fff" fill="#fff")
+        div(class="mx-auto my-4 w-1/2 h-12")
+            MainSearchBar
         div(class="w-auto inline-block px-4 pb-2 border-b-2 border-white")
             h1(class="font-sans text-white font-bold text-4xl tracking-wide") Kategorie
         div(class="grid grid-cols-5 gap-8 py-6 px-2")
