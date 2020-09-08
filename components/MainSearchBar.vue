@@ -12,16 +12,30 @@
                         | Ingredience
             // recipe results
             div#recipe-results(class="w-full h-auto bg-white absolute rounded-md mt-1 shadow" v-if="recipesActive")
+                // actually link to existing recipes
                 div(class="result-item") Result 1
                 div(class="result-item") Result 2
                 div(class="result-item") Result 3
             // ingredient results
             div#ingredient-results(class="w-full h-auto bg-white absolute rounded-md mt-1 shadow" v-else)
-                div(class="result-item" :class="{ 'bg-orange-200': itemSelected }")
-                    | Ingredient 1
-                    font-awesome-icon(icon="check" class="mr-2 my-auto text-orange-600" v-if="itemSelected")
-                div(class="result-item") Ingredient 2
-                div(class="result-item") Ingredient 3
+                div(v-for="ingredient in ingredients"
+                    :key="ingredient.id"
+                    class="result-item"
+                    :class="{ 'bg-orange-200': ingredient.selected }"
+                    @click="toggleIngredient(ingredient.id)")
+                    | {{ ingredient.name }}
+                    font-awesome-icon(icon="check" class="mr-2 my-auto text-orange-600" v-if="ingredient.selected")
+            // selected ingredients in input
+            div#selected-ingredients(v-if="!recipesActive" class="w-full absolute ml-2")
+                div(class="selected-ingredient")
+                    | Short
+                    font-awesome-icon(icon="times" size="sm" class="my-auto ml-2 cursor-pointer")
+                div(class="selected-ingredient")
+                    | Slightly longer
+                    font-awesome-icon(icon="times" size="sm" class="my-auto ml-2 cursor-pointer")
+                div(class="selected-ingredient")
+                    | Extra long long long
+                    font-awesome-icon(icon="times" size="sm" class="my-auto ml-2 cursor-pointer")
         button#search-button(class="h-full bg-orange-500 hover:bg-orange-600 py-2 px-4 text-white font-bold tracking-wide w-1/5 rounded-lg rounded-l-none text-lg")
             font-awesome-icon(icon="search" class="mr-4")
             | Hledat
@@ -32,9 +46,7 @@ export default {
     name: "MainSearchBar",
     data() {
         return {
-            recipesActive: true,
-            // TODO: temp
-            itemSelected: false,
+            recipesActive: false,
             // TODO: this should be probably live-retrieved from server if possible
             recipes: [
                 'Kuřecí řízek',
@@ -49,14 +61,14 @@ export default {
                 'Špagety'
             ],
             ingredients: [
-                'sůl',
-                'pepř',
-                'špagety',
-                'kuřecí maso',
-                'paprika',
-                'rajčata',
-                'brambory',
-                'strouhanka'
+                { id: 1, selected: false, name: 'sůl' },
+                { id: 2, selected: false, name: 'pepř' },
+                { id: 3, selected: false, name: 'špagety' },
+                { id: 4, selected: false, name: 'kuřecí maso' },
+                { id: 5, selected: false, name: 'paprika' },
+                { id: 6, selected: false, name: 'rajčata' },
+                { id: 7, selected: false, name: 'brambory' },
+                { id: 8, selected: false, name: 'strouhanka' }
             ]
         }
     },
@@ -64,6 +76,9 @@ export default {
         placeholder() {
             if (this.recipesActive) {
                 return "Vyhledat recepty";
+            }
+            if(this.ingredients.filter(i => i.selected).length > 0) {
+                return "";
             }
             return "Vyhledat podle ingrediencí";
         }
@@ -74,6 +89,10 @@ export default {
         },
         selectIngredients() {
             this.recipesActive = false;
+        },
+        toggleIngredient(id) {
+            const ingredient = this.ingredients.find(i => i.id === id);
+            ingredient.selected = !ingredient.selected;
         }
     }
 }
@@ -113,6 +132,18 @@ export default {
     &:hover {
         @apply bg-orange-300;
     }
+}
+#selected-ingredients {
+    width: calc(100% - 13rem); // so it ends before the toggle
+    top: 50%;
+    transform: translate(0, -50%);
+    @apply overflow-hidden;
+}
+.selected-ingredient {
+    @apply mr-1 px-2 py-1 rounded-md border border-orange-500 text-orange-600 flex justify-between inline-block;
 
+    &:hover {
+        @apply border-orange-700 text-orange-700;
+    }
 }
 </style>
