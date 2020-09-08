@@ -4,12 +4,12 @@
         div(class="w-auto inline-block px-4 pb-2 border-b-2 border-white")
             h1(class="font-sans text-white font-bold text-4xl tracking-wide") Kategorie
         div(class="grid grid-cols-5 gap-8 pt-6 px-2")
-            CategoryItem
-            CategoryItem
-            CategoryItem
-            CategoryItem
-            CategoryItem
-            CategoryItem
+            CategoryItem(file="Chicken-Tikka-Masala-Square.jpg" title="Oběd")
+            CategoryItem(file="Chicken-Tikka-Masala-Square.jpg" title="Oběd")
+            CategoryItem(file="Chicken-Tikka-Masala-Square.jpg" title="Oběd")
+            CategoryItem(file="Chicken-Tikka-Masala-Square.jpg" title="Oběd")
+            CategoryItem(file="Chicken-Tikka-Masala-Square.jpg" title="Oběd")
+            CategoryItem(file="Chicken-Tikka-Masala-Square.jpg" title="Oběd")
         //-div(class="bg-white rounded-lg p-16 my-8")
             h1(class="text-2xl font-medium mb-2") Let's build some shit
             h2(class="font-medium text-sm text-indigo-400 mb-4 uppercase tracking-wide") Navbar
