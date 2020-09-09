@@ -3,13 +3,6 @@
         // inline block so it creates a new relative-absolute context for input-related things
         div(class="relative inline-block h-full w-4/5")
             input(type="text" :placeholder="placeholder" class="h-full w-full rounded-lg rounded-r-none text-lg px-3")
-            // toggle
-            //-div#toggle(class="absolute right-0 mr-2")
-                div(class="bg-gray-300 text-sm leading-none border-2 border-gray-200 rounded-full inline-flex")
-                    button(class="toggle-part" :class="{ 'active-toggle': recipesActive }" @click="selectRecipes")
-                        | Recepty
-                    button(class="toggle-part" :class="{ 'active-toggle': !recipesActive }" @click="selectIngredients")
-                        | Ingredience
             // recipe results
             div#recipe-results(class="w-full h-auto bg-white absolute rounded-md mt-1 shadow" v-if="!ingredientsActive")
                 // actually link to existing recipes
@@ -25,7 +18,7 @@
                     @click="toggleIngredient(ingredient.id)")
                     | {{ ingredient.name }}
                     font-awesome-icon(icon="check" class="mr-2 my-auto text-orange-600" v-if="ingredient.selected")
-            // selected ingredients in input
+            // selected ingredients in input - overflows when too much of them are present but CBA to think of a fix
             div#selected-ingredients(v-if="ingredientsActive" class="w-full absolute ml-2")
                 div(v-for="ingredient in selectedIngredients" :key="ingredient.id" class="selected-ingredient")
                     | {{ ingredient.name }}
@@ -34,9 +27,11 @@
             button#search-button(class="h-full w-full bg-orange-500 hover:bg-orange-600 py-2 px-4 text-white font-bold tracking-wide rounded-lg rounded-l-none text-lg")
                 font-awesome-icon(icon="search" class="mr-4")
                 | Hledat
-            div#new-toggle(class="absolute right-0 top-0 flex justify-between")
+            // toggle
+            div#toggle(class="absolute right-0 top-0 flex justify-between")
                 div(class="relative w-10 mr-2")
-                    input(type="checkbox" name="toggle" id="toggle-checkbox" v-model="ingredientsActive" class="transition duration-200 ease-in mx-1 shadow absolute w-4 h-4 rounded-full bg-white appearance-none cursor-pointer")
+                    input(type="checkbox" name="toggle" id="toggle-checkbox" v-model="ingredientsActive"
+                        class="transition duration-200 ease-in mx-1 shadow absolute w-4 h-4 rounded-full bg-white appearance-none cursor-pointer")
                     label#toggle-label(for="toggle-checkbox" class=" block h-6 rounded-full bg-gray-300 cursor-pointer")
                 label(for="toggle-checkbox" class="text-white my-auto") Ingredience
 
@@ -62,14 +57,14 @@ export default {
                 'Špagety'
             ],
             ingredients: [
-                { id: 1, selected: true, name: 'sůl' },
-                { id: 2, selected: true, name: 'pepř' },
-                { id: 3, selected: true, name: 'špagety' },
-                { id: 4, selected: true, name: 'kuřecí maso' },
-                { id: 5, selected: true, name: 'paprika' },
-                { id: 6, selected: true, name: 'rajčata' },
-                { id: 7, selected: true, name: 'brambory' },
-                { id: 8, selected: true, name: 'strouhanka' }
+                { id: 1, selected: false, name: 'sůl' },
+                { id: 2, selected: false, name: 'pepř' },
+                { id: 3, selected: false, name: 'špagety' },
+                { id: 4, selected: false, name: 'kuřecí maso' },
+                { id: 5, selected: false, name: 'paprika' },
+                { id: 6, selected: false, name: 'rajčata' },
+                { id: 7, selected: false, name: 'brambory' },
+                { id: 8, selected: false, name: 'strouhanka' }
             ]
         }
     },
@@ -97,7 +92,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#new-toggle {
+#toggle {
     transform: translate(105%, 50%);
 
     #toggle-checkbox {
@@ -108,16 +103,8 @@ export default {
         @apply bg-orange-400;
         transform: translate(100%, -50%);
     }
-    //#toggle-checkbox:checked + #toggle-label {
-    //    @apply bg-orange-500;
-    //}
 }
 
-
-#toggle {
-    top: 50%;
-    transform: translate(0, -50%);
-}
 #search-button {
     min-width: 130px;
 }
