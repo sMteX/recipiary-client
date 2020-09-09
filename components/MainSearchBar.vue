@@ -1,10 +1,10 @@
 <template lang="pug">
     div(class="h-full")
         // inline block so it creates a new relative-absolute context for input-related things
-        div(class="relative inline-block h-full w-4/5 ")
-            input(type="text" :placeholder="placeholder" class="h-full w-full rounded-lg rounded-r-none text-lg pl-3 pr-56")
+        div(class="relative inline-block h-full w-4/5")
+            input(type="text" :placeholder="placeholder" class="h-full w-full rounded-lg rounded-r-none text-lg px-3")
             // toggle
-            div#toggle(class="absolute right-0 mr-2")
+            //-div#toggle(class="absolute right-0 mr-2")
                 div(class="bg-gray-300 text-sm leading-none border-2 border-gray-200 rounded-full inline-flex")
                     button(class="toggle-part" :class="{ 'active-toggle': recipesActive }" @click="selectRecipes")
                         | Recepty
@@ -36,9 +36,19 @@
                 div(class="selected-ingredient")
                     | Extra long long long
                     font-awesome-icon(icon="times" size="sm" class="my-auto ml-2 cursor-pointer")
-        button#search-button(class="h-full bg-orange-500 hover:bg-orange-600 py-2 px-4 text-white font-bold tracking-wide w-1/5 rounded-lg rounded-l-none text-lg")
-            font-awesome-icon(icon="search" class="mr-4")
-            | Hledat
+                div(class="selected-ingredient")
+                    | Short
+                    font-awesome-icon(icon="times" size="sm" class="my-auto ml-2 cursor-pointer")
+        div(class="relative inline-block h-full w-1/5")
+            button#search-button(class="h-full w-full bg-orange-500 hover:bg-orange-600 py-2 px-4 text-white font-bold tracking-wide rounded-lg rounded-l-none text-lg")
+                font-awesome-icon(icon="search" class="mr-4")
+                | Hledat
+            div#new-toggle(class="absolute right-0 top-0 flex justify-between")
+                div(class="relative w-10 mr-2")
+                    input(type="checkbox" name="toggle" id="toggle-checkbox" class="transition duration-200 ease-in mx-1 shadow absolute w-4 h-4 rounded-full bg-white appearance-none cursor-pointer")
+                    label#toggle-label(for="toggle-checkbox" class=" block h-6 rounded-full bg-gray-400 cursor-pointer")
+                label(for="toggle-checkbox" class="text-white my-auto") Ingredience
+
 </template>
 
 <script>
@@ -99,6 +109,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#new-toggle {
+    transform: translate(105%, 50%);
+
+    #toggle-checkbox {
+        top: 50%;
+        transform: translate(0, -50%);
+    }
+    #toggle-checkbox:checked {
+        @apply bg-orange-500;
+        transform: translate(100%, -50%);
+    }
+    //#toggle-checkbox:checked + #toggle-label {
+    //    @apply bg-orange-500;
+    //}
+}
+
+
 #toggle {
     top: 50%;
     transform: translate(0, -50%);
@@ -134,7 +161,6 @@ export default {
     }
 }
 #selected-ingredients {
-    width: calc(100% - 13rem); // so it ends before the toggle
     top: 50%;
     transform: translate(0, -50%);
     @apply overflow-hidden;
