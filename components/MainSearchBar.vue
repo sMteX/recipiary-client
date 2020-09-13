@@ -4,25 +4,29 @@
         div(class="relative inline-block h-full w-4/5"
             @focusout="inputBlur"
             @focusin="inputFocus")
-            input(ref="input" type="text" :placeholder="placeholder" :readonly="ingredientsActive"
+            input(ref="input" v-model="inputText" type="text" :placeholder="placeholder" :readonly="ingredientsActive"
                 class="h-full w-full rounded-lg rounded-r-none text-lg px-3")
             // recipe results
-            div#recipe-results(class="w-full h-auto bg-white absolute rounded-md mt-1 shadow" v-if="!ingredientsActive" v-show="showResult" @click="$refs.input.focus()")
+            div#recipe-results(class="w-full h-auto bg-white absolute rounded-md mt-1 shadow" v-if="!ingredientsActive" v-show="showResult")
                 // actually link to existing recipes
-                div(class="result-item refocus-input") Result 1
-                div(class="result-item refocus-input") Result 2
-                div(class="result-item refocus-input") Result 3
+                div(v-if="recipeSearchResults.length === 0"
+                    class="italic text-gray-600 p-2") Nebyly nalezeny žádné recepty.
+                template(v-else)
+                    div(v-for="recipe in recipeSearchResults"
+                        :key="recipe.id"
+                        class="result-base result-recipe refocus-input")
+                        nuxt-link(:to="{ name: 'recipe-id', params: { id: recipe.id } }") {{ recipe.name }}
             // ingredient results
             div#ingredient-results(class="w-full h-auto bg-white absolute rounded-md mt-1 shadow" v-else v-show="showResult")
                 div(v-for="ingredient in ingredients"
                     :key="ingredient.id"
-                    class="result-item refocus-input"
+                    class="result-base result-ingredient refocus-input"
                     :class="{ 'bg-orange-200': ingredient.selected }"
                     @click="toggleIngredient(ingredient.id)")
                     | {{ ingredient.name }}
                     font-awesome-icon(icon="check" class="mr-2 my-auto text-orange-600" v-if="ingredient.selected")
             // selected ingredients in input - overflows when too much of them are present but CBA to think of a fix
-            div#selected-ingredients(v-if="ingredientsActive" class="w-full absolute ml-2")
+            div#selected-ingredients(v-if="ingredientsActive" class="w-full absolute ml-2" @click="$refs.input.focus()")
                 div(v-for="ingredient in selectedIngredients" :key="ingredient.id" class="selected-ingredient refocus-input")
                     | {{ ingredient.name }}
                     font-awesome-icon(icon="times" size="sm" class="my-auto ml-2 cursor-pointer" @click="toggleIngredient(ingredient.id)")
@@ -41,25 +45,47 @@
 </template>
 
 <script>
+import * as _ from 'lodash';
+
+const debug = true;
+const debugRecipes = [
+    { id: 1, name: 'Kuřecí řízek' },
+    { id: 2, name: 'Vepřový řízek' },
+    { id: 3, name: 'Řízek naruby' },
+    { id: 4, name: 'Svíčková na smetaně' },
+    { id: 5, name: 'Těstovinový salát' },
+    { id: 6, name: 'Bramborový salát' },
+    { id: 7, name: 'Plněné papriky s rajskou omáčkou' },
+    { id: 8, name: 'Rajská polévka' },
+    { id: 9, name: 'Kuřecí polévka' },
+    { id: 10, name: 'Špagety' }
+];
+
 export default {
     name: "MainSearchBar",
     data() {
         return {
+            throttledQuery: _.throttle((value, callback) => {
+                let result;
+                const lowercase = value.toLowerCase();
+                if (debug) {
+                    result = debugRecipes
+                        .filter(r => r.name.toLowerCase().includes(lowercase))
+                        .sort((a, b) => {
+                            const nA = a.name.toLowerCase();
+                            const nB = b.name.toLowerCase();
+                            return (nA < nB) ? -1 : (nA > nB) ? 1 : 0; // alphabetically
+                        })
+                } else {
+                    result = []; // TODO
+                    // TODO: also limit to maybe 10 results? or implement scrolling
+                }
+                callback(result);
+            }, 250),
             showResult: false,
             ingredientsActive: false,
-            // TODO: this should be probably live-retrieved from server if possible
-            recipes: [
-                'Kuřecí řízek',
-                'Vepřový řízek',
-                'Řízek naruby',
-                'Svíčková na smetaně',
-                'Těstovinový salát',
-                'Bramborový salát',
-                'Plněné papriky s rajskou omáčkou',
-                'Rajská polévka',
-                'Kuřecí polévka',
-                'Špagety'
-            ],
+            inputText: '',
+            // TODO: maybe pre-load all ingredients? there might not be that many of them..
             ingredients: [
                 { id: 1, selected: false, name: 'sůl' },
                 { id: 2, selected: false, name: 'pepř' },
@@ -69,7 +95,8 @@ export default {
                 { id: 6, selected: false, name: 'rajčata' },
                 { id: 7, selected: false, name: 'brambory' },
                 { id: 8, selected: false, name: 'strouhanka' }
-            ]
+            ],
+            recipeSearchResults: [],
         }
     },
     computed: {
@@ -84,6 +111,23 @@ export default {
                 return "Vyhledat podle ingrediencí";
             }
             return "Vyhledat recepty";
+        }
+    },
+    watch: {
+        inputText(newValue) {
+            if (newValue !== '') {
+                this.throttledQuery(newValue, results => {
+                    this.recipeSearchResults = results;
+                    this.showResult = true;
+                });
+            } else {
+                this.showResult = false;
+            }
+        },
+        ingredientsActive() {
+            // reset search
+            this.inputText = '';
+            this.ingredients.forEach(i => i.selected = false);
         }
     },
     methods: {
@@ -112,8 +156,10 @@ export default {
             this.showResult = false;
         },
         inputFocus() {
-            // TODO: probably should show after you type something, but the mechanism for showing/hiding is the same
-            this.showResult = true;
+            // focusing while searching for recipes doesn't really do anything
+            if (this.ingredientsActive) {
+                this.showResult = true;
+            }
         },
         toggleIngredient(id) {
             const ingredient = this.ingredients.find(i => i.id === id);
@@ -140,8 +186,8 @@ export default {
 #search-button {
     min-width: 130px;
 }
-.result-item {
-    @apply cursor-pointer py-1 px-2 flex justify-between;
+.result-base {
+    @apply cursor-pointer py-1 px-2;
 
     &:first-of-type {
         @apply rounded-md rounded-b-none p-2 pb-1;
@@ -152,6 +198,12 @@ export default {
     &:hover {
         @apply bg-orange-300;
     }
+}
+.result-recipe a {
+    @apply block w-full;
+}
+.result-ingredient {
+    @apply flex justify-between;
 }
 #selected-ingredients {
     top: 50%;
