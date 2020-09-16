@@ -11,3 +11,13 @@
     //background-image: url("../img/background/top-view-frame-with-fast-food-copy-space.jpg");
     //background-image: url("../img/background/top-view-spices-stucco-background.jpg");
 }
+// page transitions
+.page-enter-active,
+.page-leave-active {
+    transition: opacity ease-in-out 0.1s;
+}
+
+.page-enter,
+.page-leave-to {
+    opacity: 0;
+}
