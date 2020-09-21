@@ -6,18 +6,18 @@
         div(class="w-auto inline-block px-4 pb-2 border-b-2 border-orange-500")
             h1(class="font-sans text-white font-bold text-4xl tracking-wide") Kategorie
         div(class="grid grid-cols-5 gap-8 py-6 px-2")
-            CategoryItem(file="Chicken-Tikka-Masala-Square.jpg" title="Oběd")
-            CategoryItem(file="Chicken-Tikka-Masala-Square.jpg" title="Oběd")
-            CategoryItem(file="Chicken-Tikka-Masala-Square.jpg" title="Oběd")
-            CategoryItem(file="Chicken-Tikka-Masala-Square.jpg" title="Oběd")
-            CategoryItem(file="Chicken-Tikka-Masala-Square.jpg" title="Oběd")
-            CategoryItem(file="Chicken-Tikka-Masala-Square.jpg" title="Oběd")
+            CategoryItem(v-bind="category")
+            CategoryItem(v-bind="category")
+            CategoryItem(v-bind="category")
+            CategoryItem(v-bind="category")
+            CategoryItem(v-bind="category")
+            CategoryItem(v-bind="category")
             template(v-if="showAllCategories")
-                CategoryItem(file="Chicken-Tikka-Masala-Square.jpg" title="Oběd")
-                CategoryItem(file="Chicken-Tikka-Masala-Square.jpg" title="Oběd")
-                CategoryItem(file="Chicken-Tikka-Masala-Square.jpg" title="Oběd")
-                CategoryItem(file="Chicken-Tikka-Masala-Square.jpg" title="Oběd")
-                CategoryItem(file="Chicken-Tikka-Masala-Square.jpg" title="Oběd")
+                CategoryItem(v-bind="category")
+                CategoryItem(v-bind="category")
+                CategoryItem(v-bind="category")
+                CategoryItem(v-bind="category")
+                CategoryItem(v-bind="category")
         div(class="flex justify-center" v-if="!showAllCategories")
             button(class="bg-orange-500 p-4 rounded-md text-white font-bold tracking-wide hover:bg-orange-600"
                 @click="allCategoriesClick") Zobrazit všechny kategorie
@@ -38,6 +38,11 @@ import Component from 'nuxt-class-component';
 })
 export default class Homepage extends Vue {
     showAllCategories: boolean = false;
+    category = {
+        id: 3,
+        name: 'Maso',
+        image: 'Chicken-Tikka-Masala-Square.jpg'
+    };
 
     allCategoriesClick() {
         this.showAllCategories = true;

@@ -1,30 +1,32 @@
 <template lang="pug">
     //wrapper
     div(class="w-48 h-40")
-        //pic
-        div(class="h-32 bg-local bg-cover rounded rounded-b-none"
-            :style="imageStyle")
-        //text
-        div(class="bg-orange-500 hover:bg-orange-600 rounded rounded-t-none text-white p-2 font-sans font-bold tracking-wide")
-            | {{ title }}
+        nuxt-link(:to="`/category/${id}`")
+            //pic
+            div(class="h-32 bg-local bg-cover rounded rounded-b-none"
+                :style="imageStyle")
+            //text
+            div(class="bg-orange-500 hover:bg-orange-600 rounded rounded-t-none text-white p-2 font-sans font-bold tracking-wide")
+                | {{ name }}
 </template>
 
 <script>
 export default {
-    name: "CategoryItem",
+    name: 'CategoryItem',
     props: {
-        file: String, // to be concatenated with "../assets/img/categories/"
-        title: String
+        id: Number,
+        name: String,
+        image: String   // to be concatenated with "../assets/img/categories/"
     },
     computed: {
         imageStyle() {
             // because Webpack/vue-loader has to resolve the path during the build - works out of the box in CSS, not in JS
-            if (!this.file) {
+            if (!this.image) {
                 return;
             }
 
             try {
-                const image = require(`../assets/img/categories/${this.file}`);
+                const image = require(`../assets/img/categories/${this.image}`);
                 return {
                     backgroundImage: `url("${image}")`
                 }
