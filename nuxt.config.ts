@@ -90,6 +90,7 @@ const nuxtConfig: Configuration = {
         /*
          ** You can extend webpack config here
          */
+        transpile: ['vue-clamp', 'resize-detector']
     },
     /*
      ** Auto import of components
