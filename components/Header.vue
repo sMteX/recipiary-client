@@ -11,7 +11,7 @@
                 li(v-if="$auth.loggedIn")
                     a(href="#" class="header-link") Přidat recept
                 li
-                    nuxt-link(to="/categories" class="header-link") Kategorie
+                    HeaderCategoryDropdown(:categories="categories")
                 li(v-if="$auth.loggedIn")
                     a(href="#" class="header-link") Přidat kategorii
         label(for="menu-toggle" class="cursor-pointer lg:hidden block")
@@ -41,6 +41,18 @@ import Component from 'nuxt-class-component';
 
 @Component({})
 export default class Header extends Vue {
+    // TODO: fetch from server (if no children, specify empty array!)
+    categories = [
+        { id: 1, name: 'Obědy', children: [] },
+        { id: 2, name: 'Maso', children: [
+                { id: 3, name: 'Kuřecí maso', children: [] },
+                { id: 4, name: 'Hovězí maso', children: [{ id: 6, name: 'Arbitrary', children: []}] }
+        ]},
+        { id: 5, name: 'Sladké jídla', children: [
+                { id: 6, name: 'Cukroví', children: [] },
+                { id: 7, name: 'Dorty', children: [] }
+            ]}
+    ];
     async logout() {
         await this.$auth.logout();
     }
