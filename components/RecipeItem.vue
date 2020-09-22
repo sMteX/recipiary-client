@@ -6,7 +6,7 @@
             div(class="h-32 bg-local bg-cover rounded rounded-b-none"
                 :style="imageStyle")
             //text
-            div(class="h-16 bg-orange-500 hover:bg-orange-600 rounded rounded-t-none text-white p-2 font-bold tracking-wide text-center")
+            div(class="h-16 bg-orange-500 hover:bg-orange-600 rounded rounded-t-none text-white p-2 font-bold tracking-wide text-center flex items-center justify-center")
                 v-clamp(:max-lines="2") {{ name }}
 </template>
 
