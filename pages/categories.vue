@@ -1,7 +1,6 @@
 <template lang="pug">
     div
-        div(class="w-auto inline-block px-4 pb-2 border-b-2 border-orange-500")
-            h1(class="font-sans text-white font-bold text-4xl tracking-wide") Kategorie
+        MainHeading Kategorie
         div(class="grid grid-cols-5 gap-8 py-6 px-2")
             // top level categories
             // shorthand for binding all individal properties

@@ -12,7 +12,8 @@
                     nuxt-link(to="/recipes" class="header-link") Všechny recepty
                 li(v-if="$auth.loggedIn")
                     a(href="#" class="header-link") Přidat recept
-                li(v-if="$auth.loggedIn")
+                //li(v-if="$auth.loggedIn")
+                li
                     a(href="#" class="header-link") Přidat kategorii
         label(for="menu-toggle" class="cursor-pointer lg:hidden block")
             svg(class="fill-current text-gray-900" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20")

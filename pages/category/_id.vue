@@ -1,7 +1,6 @@
 <template lang="pug">
     div
-        div(class="w-auto inline-block px-4 pb-2 border-b-2 border-orange-500")
-            h1(class="font-sans text-white font-bold text-4xl tracking-wide") {{ name }}
+        MainHeading {{ name }}
         div(class="grid grid-cols-5 gap-8 py-6 px-2")
             // sub-categories
             // kinda relies on not having many subcategories (will produce grid with 5 columns and as many rows as needed)

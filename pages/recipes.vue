@@ -1,7 +1,6 @@
 <template lang="pug">
     div
-        div(class="w-auto inline-block px-4 pb-2 border-b-2 border-orange-500")
-            h1(class="font-sans text-white font-bold text-4xl tracking-wide") Všechny recepty
+        MainHeading Všechny recepty
         div(class="grid grid-cols-4 gap-10 py-6 px-2")
             RecipeItem(v-for="recipe in recipes" :key="recipe.id" v-bind="recipe")
 </template>
