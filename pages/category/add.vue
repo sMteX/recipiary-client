@@ -82,7 +82,42 @@ export default {
             category.children.forEach(c => this.deselect(c));
         },
         async addCategory() {
+            if (!this.name.trim() || this.selected === -1) {
+                // TODO: show message
+                return;
+            }
             // TODO: send to server, reload categories I guess? or entire page?
+            const returned = { id: Math.random()*100 + 15, name: this.name, children: [] }; // something like this can return from server
+            const newCategory = { ...returned, collapsed: true, selected: false };
+            // find parent and add to children
+            if (this.selected === 0) {
+                // root
+                this.categories.push(newCategory);
+            } else {
+                const parent = this.findCategory(this.selected);
+                if (!parent) {
+                    // shouldn't happen
+                    alert('Shit went wrong yo (invalid parent)');
+                    return;
+                }
+                parent.children.push(newCategory);
+                parent.collapsed = false; // so the new category isn't hidden
+            }
+            this.categories.forEach(c => this.deselect(c));
+            this.name = '';
+            this.selected = -1;
+        },
+        findCategory(id) {
+            let ret = null;
+            const checkCategory = (category, id) => {
+                if (category.id === id) {
+                    ret = category;
+                    return;
+                }
+                category.children.forEach(c => checkCategory(c, id));
+            }
+            this.categories.forEach(category => checkCategory(category, id));
+            return ret;
         }
     }
 
