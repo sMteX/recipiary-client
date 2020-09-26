@@ -10,7 +10,10 @@
             p(class="text-white font-semibold text-xl")
                 | Zařadit do kategorie:
             div(class="bg-black bg-opacity-25 w-1/3 p-2 mt-2")
-                AddCategoryTree(:categories="categories" :selectHandler="selectCategory")
+                AddCategoryTree(:categories="categories"
+                                :handleSelect="selectCategory"
+                                :toggleCollapsed="toggleCollapsed"
+                                :rootSelected="rootSelected")
 </template>
 
 <script>
@@ -23,37 +26,54 @@ export default {
     },
     data() {
         return {
+            selected: -1,
             categories: [
-                { id: 1, name: 'Maso', selected: false, children: [
-                        { id: 6, name: 'Drůbeží maso', selected: false, children: [] },
-                        { id: 7, name: 'Hovězí maso', selected: false, children: [] },
-                        { id: 8, name: 'Vepřové maso', selected: false, children: [] }
+                { id: 1, name: 'Maso', collapsed: true, selected: false, children: [
+                        { id: 6, name: 'Drůbeží maso', collapsed: true, selected: false, children: [] },
+                        { id: 7, name: 'Hovězí maso', collapsed: true, selected: false, children: [] },
+                        { id: 8, name: 'Vepřové maso', collapsed: true, selected: false, children: [] }
                     ] },
-                { id: 2, name: 'Sladké jídla', selected: false, children: [
-                        { id: 9, name: 'Cukroví', selected: false, children: [] },
-                        { id: 10, name: 'Moučníky', selected: false, children: [] },
-                        { id: 11, name: 'Dorty', selected: false, children: [
-                                { id: 12, name: 'Nepečené', selected: false, children: [] },
-                                { id: 13, name: 'Pečené', selected: false, children: [] }
+                { id: 2, name: 'Sladké jídla', collapsed: true, selected: false, children: [
+                        { id: 9, name: 'Cukroví', collapsed: true, selected: false, children: [] },
+                        { id: 10, name: 'Moučníky', collapsed: true, selected: false, children: [] },
+                        { id: 11, name: 'Dorty', collapsed: true, selected: false, children: [
+                                { id: 12, name: 'Nepečené', collapsed: true, selected: false, children: [] },
+                                { id: 13, name: 'Pečené', collapsed: true, selected: false, children: [] }
                             ] }
                     ] },
-                { id: 3, name: 'Polévky', selected: false, children: [] },
-                { id: 4, name: 'Studená jídla', selected: false, children: [] },
-                { id: 5, name: 'Saláty', selected: false, children: [] }
+                { id: 3, name: 'Polévky', collapsed: true, selected: false, children: [] },
+                { id: 4, name: 'Studená jídla', collapsed: true, selected: false, children: [] },
+                { id: 5, name: 'Saláty', collapsed: true, selected: false, children: [] }
             ]
         }
     },
+    computed: {
+        rootSelected() {
+            return this.selected === 0;
+        }
+    },
     methods: {
-        selectCategory(id) {
-            console.log(`Selected category: ${id}`);
-            this.categories.forEach(category => this.findAndToggleSelected(id, category));
-        },
-        findAndToggleSelected(id, category) {
-            if (category.id === id) {
-                category.selected = !category.selected;
-            } else if (category.children.length > 0) {
-                category.children.forEach(cat => this.findAndToggleSelected(id, cat));
+        selectCategory(category) {
+            if (category === 0) {
+                // special case, selected root category
+                console.log('Selected root category');
+                this.categories.forEach(c => this.deselect(c)); // recursively deselect all categories and select new one
+                this.selected = 0;
+            } else {
+                console.log(`Selected category: ${category.id}`);
+                this.categories.forEach(c => this.deselect(c)); // recursively deselect all categories and select new one
+                category.selected = true;
+                this.selected = category.id;
             }
+        },
+        toggleCollapsed(category) {
+            // to avoid mutating props in AddCategoryTreeItem
+            // we only pass reference to this function and trigger/mutate it here (where it's data)
+            category.collapsed = !category.collapsed;
+        },
+        deselect(category) {
+            category.selected = false;
+            category.children.forEach(c => this.deselect(c));
         }
     }
 
