@@ -25,7 +25,7 @@ export default {
         return {
             categories: [
                 { id: 1, name: 'Maso', selected: false, children: [
-                        { id: 6, name: 'Drůběží maso', selected: false, children: [] },
+                        { id: 6, name: 'Drůbeží maso', selected: false, children: [] },
                         { id: 7, name: 'Hovězí maso', selected: false, children: [] },
                         { id: 8, name: 'Vepřové maso', selected: false, children: [] }
                     ] },

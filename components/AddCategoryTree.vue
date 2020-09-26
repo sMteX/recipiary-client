@@ -2,51 +2,10 @@
     div(class="text-white text-lg")
         p Hlavní kategorie
         ul(class="ml-2")
-            li
-                div
-                    font-awesome-icon(icon="minus-square" size="lg")
-                    | Maso
-                ul(class="ml-5")
-                    li
-                        font-awesome-icon(icon="square" size="xs")
-                        | Drůbeží maso
-                    li
-                        font-awesome-icon(icon="square" size="xs")
-                        | Hovězí maso
-                    li
-                        font-awesome-icon(icon="square" size="xs")
-                        | Vepřové maso
-            li
-                div
-                    font-awesome-icon(icon="minus-square" size="lg")
-                    | Sladké jídla
-                ul(class="ml-5")
-                    li
-                        font-awesome-icon(icon="square" size="xs")
-                        | Cukroví
-                    li
-                        font-awesome-icon(icon="square" size="xs")
-                        | Moučníky
-                    li
-                        div
-                            font-awesome-icon(icon="minus-square" size="lg")
-                            | Dorty
-                        ul(class="ml-5")
-                            li
-                                font-awesome-icon(icon="square" size="xs")
-                                | Nepečené
-                            li
-                                font-awesome-icon(icon="square" size="xs")
-                                | Pečené
-            li
-                font-awesome-icon(icon="square" size="xs")
-                | Polévky
-            li
-                font-awesome-icon(icon="square" size="xs")
-                | Studená jídla
-            li
-                font-awesome-icon(icon="square" size="xs")
-                | Saláty
+            AddCategoryTreeItem(v-for="category in localCategories"
+                                :key="category.id"
+                                :category="category"
+                                :toggleCollapsed="toggleCollapsed")
 </template>
 
 <script>
@@ -66,20 +25,19 @@ export default {
             // basically add a "collapsed" prop to each category in the tree, without needing to add it to the parent categories (only for display)
             if (category.children.length > 0) {
                 const children = category.children.map(c => this.transformCategory(c));
-                return { ...category, collapsed: false, children };
+                return { ...category, collapsed: true, children };
             }
-            return { ...category, collapsed: false };
+            return { ...category, collapsed: true };
+        },
+        toggleCollapsed(category) {
+            // to avoid mutating props in AddCategoryTreeItem
+            // we only pass reference to this function and trigger/mutate it here (where it's data)
+            category.collapsed = !category.collapsed;
         }
     }
 }
 </script>
 
-<style scoped>
-li {
-    @apply pt-1;
-}
-svg {
-    @apply mr-2 text-orange-400;
+<style>
 
-}
 </style>
