@@ -23,6 +23,7 @@
 <script>
 export default {
     name: 'add',
+    // TODO: guard, allow logged in only on route
     head() {
         return {
             title: 'Přidat kategorii',
