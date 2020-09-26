@@ -1,5 +1,5 @@
 <template lang="pug">
-    li(v-if="category.children.length > 0" class="pt-1")
+    li(v-if="category.children.length > 0" class="pt-2")
         div(class="flex justify-start")
             font-awesome-icon(:icon="icon" size="lg" @click="toggleCollapsed(category)" class="cursor-pointer mr-2 text-orange-400")
             div(@click="handleSelect(category)"
@@ -15,7 +15,7 @@
                                 :handleSelect="handleSelect")
     li(v-else
         @click="handleSelect(category)"
-        class="pt-1 cursor-pointer hover:text-orange-400"
+        class="pt-2 cursor-pointer hover:text-orange-400"
         :class="{ 'text-orange-400': category.selected }")
         font-awesome-icon(icon="square" size="xs" class="mr-2 text-orange-400")
         | {{ category.name }}

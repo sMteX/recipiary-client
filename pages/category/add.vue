@@ -5,7 +5,8 @@
             label(for="name" class="text-white font-semibold text-xl")
                 | Název:
             input(type="text" id="name" placeholder="Název kategorie"
-                    class="ml-4 rounded-md text-lg h-10 w-1/4 px-2")
+                    class="ml-4 rounded-md text-lg h-10 w-1/4 px-2"
+                    v-model="name")
         div(class="pt-4 px-2")
             p(class="text-white font-semibold text-xl")
                 | Zařadit do kategorie:
@@ -14,6 +15,9 @@
                                 :handleSelect="selectCategory"
                                 :toggleCollapsed="toggleCollapsed"
                                 :rootSelected="rootSelected")
+            button(class="bg-orange-500 py-2 px-4 mt-4 rounded-md text-white font-bold tracking-wide hover:bg-orange-600"
+                    @click="addCategory")
+                | Přidat
 </template>
 
 <script>
@@ -26,7 +30,9 @@ export default {
     },
     data() {
         return {
+            name: '',
             selected: -1,
+            // TODO: fetch from server
             categories: [
                 { id: 1, name: 'Maso', collapsed: true, selected: false, children: [
                         { id: 6, name: 'Drůbeží maso', collapsed: true, selected: false, children: [] },
@@ -74,6 +80,9 @@ export default {
         deselect(category) {
             category.selected = false;
             category.children.forEach(c => this.deselect(c));
+        },
+        async addCategory() {
+            // TODO: send to server, reload categories I guess? or entire page?
         }
     }
 
